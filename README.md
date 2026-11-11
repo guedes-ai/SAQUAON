@@ -144,4 +144,74 @@ As fotos ficam no bucket `fotos` do Supabase Storage (criado pela segunda migrat
 | Comerciante | Tudo acima, mais cadastrar até 5 estabelecimentos e editar os seus |
 | Administrador | Tudo acima, mais moderar denúncias, alterar plano/status/selo e definir o tipo dos usuários |
 
-Planos: **Gratuito** (sem promoções), **Pro**
+Planos: **Gratuito** (sem promoções), **Pro** (até 3 promoções ativas) e **Master** (ilimitado). O comerciante só **pede** o plano; o administrador ativa na aba Estabelecimentos do painel. As regras ficam no banco (RLS e triggers) e valem mesmo que alguém tente burlar a tela.
+
+## Moderação
+
+- Qualquer pessoa logada denuncia publicação, comentário ou estabelecimento (uma vez por item).
+- O administrador oculta o conteúdo, suspende o estabelecimento, descarta ou reabre a denúncia.
+- Conteúdo oculto some para o público; o autor e os administradores ainda o veem.
+- Limite contra spam: 10 publicações e 30 comentários por hora por pessoa.
+
+## Estrutura
+
+```
+src/
+  components/   telas e janelas (AdminPanel, Community, MyBusinessModal, AuthModal...)
+    ui/         Modal, campos e abas reutilizáveis
+  context/      AuthContext (sessão) e DataContext (dados do site)
+  lib/          api.ts (Supabase), supabase.ts, validation.ts
+supabase/
+  migrations/   esquema do banco, em ordem
+  seed.sql      dados de exemplo
+```
+
+## Trabalhando com fork e Git
+
+Fluxo para guardar mudanças no seu fork:
+
+```bash
+git add arquivo1 arquivo2      # ou "git add ." se tiver certeza do que está na lista
+git status                     # confira: o .env NÃO pode aparecer
+git commit -m "descrição da mudança"
+git push
+```
+
+- O `.env` nunca deve ir para o GitHub. Se ele aparecer no `git status`, pare e confira o `.gitignore`.
+- Avisos `LF will be replaced by CRLF` no Windows são só sobre quebra de linha e não são erros.
+- Se o `git push` for recusado (`rejected` / `fetch first`), o GitHub tem commits que o seu computador não tem. Rode `git pull --rebase` e depois `git push`.
+- Rode cada comando separadamente, apertando Enter depois de cada um.
+- Se o terminal disser `not a git repository`, ele está na pasta errada. Entre na pasta do clone (a que tem a pasta oculta `.git`).
+
+## Publicando (Vercel)
+
+1. Importe o repositório (framework: Vite).
+2. Em **Settings → Environment Variables**, cadastre `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY` (e `VITE_TURNSTILE_SITE_KEY`, se usar CAPTCHA).
+3. Cada `git push` na `main` publica uma nova versão. Depois de mudar variáveis, faça **Redeploy**.
+4. Coloque o endereço da Vercel em Authentication → URL Configuration no Supabase.
+
+O `.env` do seu computador não vai para a Vercel: as variáveis precisam ser cadastradas lá.
+
+## Apresentando o projeto
+
+- O login fica salvo no navegador onde a pessoa entrou. Em outro computador o site abre deslogado.
+- O `localhost:3000` só existe no seu computador. Para mostrar em outra máquina, publique o site na Vercel.
+- Antes de apresentar, saia da conta pessoal ou use uma janela anônima (Ctrl+Shift+N).
+- Crie contas de demonstração, uma de cada tipo (turista, comerciante com um estabelecimento e administrador), para mostrar cada fluxo sem usar a conta pessoal.
+
+## Problemas comuns
+
+- **`npm error ENOENT ... package.json`:** o terminal está na pasta errada. Ao extrair um zip, o projeto costuma ficar numa subpasta (`SAQUAON-main\SAQUAON-main`). Entre na pasta que contém o `package.json`.
+- **Faixa amarela "Supabase não configurado":** `.env` ausente, na pasta errada, com nomes sem o prefixo `VITE_`, ou servidor não reiniciado depois de criá-lo.
+- **"Sem conexão com o servidor":** `.env` com valores de exemplo (`xxxxxxxx`), URL errada, ou projeto do Supabase pausado (clique em Restore project).
+- **Site abre mas sem praias e quiosques:** faltou rodar o schema e o `seed.sql`.
+- **Erro em comunidade, fotos ou painel:** faltou rodar a segunda migration. Confira se existe o bucket `fotos` em Storage e as tabelas `publicacoes`, `comentarios` e `denuncias` em Table Editor.
+- **A foto não sobe:** confira o bucket `fotos` e veja a mensagem em vermelho embaixo do botão de foto. Se não houver mensagem, abra o F12 → Network e veja o status da requisição para `/storage/v1/object/fotos/`.
+- **Sem "Painel do administrador":** o usuário ainda não é administrador (veja o SQL acima) ou precisa sair e entrar de novo.
+- **Sem o botão "Editar" no menu da conta:** a versão que está rodando é antiga (confira se `src/components/Community.tsx` existe) ou o usuário não é do tipo `comerciante`.
+- **Ctrl+C não para o servidor:** se houver texto selecionado no terminal, o Ctrl+C copia em vez de interromper. Clique numa área vazia e tente de novo, ou feche o terminal pela lixeira.
+- **Falha no cadastro com CAPTCHA:** falta a Site Key no site ou a Secret Key no Supabase.
+
+## Ideias para o futuro
+
+Notificações, estatísticas de cliques para comerciantes (prometidas nos planos Pro e Master), pagamento online dos planos e edição de publicações pela tela.
