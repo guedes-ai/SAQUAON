@@ -20,66 +20,105 @@ Guia digital das praias de Saquarema (RJ). Mostra as condições do mar, reúne 
 
 ## Pré-requisitos
 
-- Node.js 18 ou mais novo
-- Uma conta gratuita no Supabase (https://supabase.com)
+- Node.js 18 ou superior;
+- Acesso ao repositório do projeto;
+- Acesso ao projeto SAQUA ON no Supabase.
 
 ## Como rodar
 
+Clone o repositório:
+
 ```bash
 git clone https://github.com/SEU-USUARIO/SAQUAON.git
+```
+
+Entre na pasta do projeto:
+
+```bash
 cd SAQUAON
+```
+
+Instale as dependências:
+
+```bash
 npm install
 ```
 
-Crie um arquivo chamado `.env` na raiz do projeto (ao lado do `package.json`) com:
+Crie um arquivo chamado `.env` na raiz do projeto, no mesmo diretório do `package.json`, e configure as seguintes variáveis:
 
-```
+```env
 VITE_SUPABASE_URL=https://SEU-PROJETO.supabase.co
 VITE_SUPABASE_ANON_KEY=sua-chave-anon-publica
 VITE_GOOGLE_MAPS_API_KEY=
 ```
 
-Depois rode:
+As credenciais de conexão devem ser obtidas no projeto SAQUA ON já configurado no Supabase, em **Project Settings → API**.
+
+Depois, execute:
 
 ```bash
 npm run dev
 ```
 
-Abra http://localhost:3000. Sempre que mudar o `.env`, pare o servidor (Ctrl+C) e rode `npm run dev` de novo.
+Abra o endereço disponibilizado pelo Vite no terminal. Caso esteja configurado na porta 3000, acesse:
 
-Não abra o `index.html` com duplo clique: o site precisa do servidor do Vite.
+http://localhost:3000
+
+Sempre que modificar o arquivo `.env`, encerre o servidor com `Ctrl + C` e execute novamente `npm run dev`.
+
+Não abra o `index.html` diretamente pelo navegador, pois o projeto precisa do servidor do Vite.
 
 ## Variáveis de ambiente
 
-| Variável | Obrigatória | Para que serve |
+| **Variável** | **Obrigatória** | **Para que serve** |
 |---|---|---|
-| `VITE_SUPABASE_URL` | Sim | Project URL do seu projeto no Supabase |
-| `VITE_SUPABASE_ANON_KEY` | Sim | Chave `anon public` (Project Settings → API) |
-| `VITE_GOOGLE_MAPS_API_KEY` | Não | Chave do Google Maps, se o mapa a utilizar |
+| `VITE_SUPABASE_URL` | Sim | Endereço do projeto SAQUA ON no Supabase. |
+| `VITE_SUPABASE_ANON_KEY` | Sim | Chave pública de acesso utilizada para conectar a aplicação ao Supabase. |
+| `VITE_GOOGLE_MAPS_API_KEY` | Não | Chave do Google Maps, caso o mapa utilize essa integração. |
 
-O `.env` não vai para o GitHub (está no `.gitignore`). Use somente a chave `anon`. **Nunca coloque a chave `service_role` no projeto.**
+O arquivo `.env` está incluído no `.gitignore`, evitando que as credenciais sejam enviadas ao GitHub.
+
+**Importante:** utilize somente a chave pública apropriada para o frontend. Nunca disponibilize a chave `service_role`, pois ela possui permissões administrativas.
 
 ## Configurando o Supabase
 
-1. Crie um projeto em https://supabase.com e espere ele terminar de iniciar.
-2. Em **Project Settings → API**, copie a Project URL e a chave `anon public` para o `.env`.
-3. No **SQL Editor**, rode, nesta ordem:
-   1. `supabase/migrations/20261104000000_schema_inicial.sql` (tabelas, regras de segurança e planos)
-   2. `supabase/seed.sql` (praias, quiosques, eventos e depoimentos de exemplo)
-4. Em **Authentication → URL Configuration**, coloque o endereço do site em **Site URL** e em **Redirect URLs**. Para testes locais, use `http://localhost:3000`.
-5. Para testar sem e-mail de confirmação, desligue **Confirm email** em **Authentication → Providers → Email**. Em produção, deixe ligado.
+O projeto SAQUA ON já possui um ambiente configurado no Supabase. Portanto, não é necessário criar um novo projeto ou executar novamente os scripts de criação do banco de dados.
 
-Rode cada arquivo uma única vez. Rodar de novo dá erro de tabela já existente.
+Para conectar a aplicação:
+
+1. Acesse o projeto SAQUA ON no painel do Supabase.
+2. Entre em **Project Settings → API**.
+3. Copie a Project URL e a chave pública.
+4. Insira os valores correspondentes no arquivo `.env`.
+5. Confira se o projeto está ativo e se as tabelas e configurações necessárias estão disponíveis.
+
+### Autenticação e redirecionamento
+
+Em **Authentication → URL Configuration**, verifique se os endereços utilizados pela aplicação estão configurados em Site URL e Redirect URLs.
+
+Para testes locais, utilize:
+
+```text
+http://localhost:3000
+```
+
+Em produção, adicione também o endereço publicado na Vercel.
 
 ### Criando um administrador
 
-Ninguém se cadastra como administrador pelo site. Crie uma conta normalmente e, no SQL Editor, rode:
+Ninguém pode se cadastrar como administrador diretamente pelo site.
+
+Para conceder permissões administrativas, crie uma conta normalmente pela plataforma e execute o seguinte comando no SQL Editor do Supabase:
 
 ```sql
-update public.usuarios set tipo = 'administrador' where email = 'seu@email.com';
+UPDATE public.usuarios
+SET tipo = 'administrador'
+WHERE email = 'seu@email.com';
 ```
 
-Por enquanto isso só libera as permissões no banco (veja "O que falta fazer").
+Substitua o e-mail pelo endereço da conta que receberá as permissões.
+
+Atualmente, essa operação libera as permissões previstas nas regras do banco de dados. O painel administrativo ainda precisa ser desenvolvido.
 
 ## Perfis e permissões
 
@@ -119,14 +158,14 @@ O comando de build é `npm run build` e a saída fica na pasta `dist/`.
 
 ## Problemas comuns
 
-- **Faixa amarela "Supabase não configurado":** o `.env` não existe, está na pasta errada ou o servidor não foi reiniciado depois de criá-lo.
-- **"Sem conexão com o servidor":** o `.env` ainda tem valores de exemplo, ou o projeto do Supabase está pausado (clique em Restore project).
-- **Site abre mas sem praias e quiosques:** falta rodar o schema e o `seed.sql`.
-- **Erro de `package.json` não encontrado:** o terminal está na pasta errada. Entre na pasta que tem o `package.json`.
+- **Faixa amarela "Supabase não configurado":** verifique se o arquivo `.env` existe na raiz do projeto, se as variáveis estão preenchidas corretamente e se o servidor foi reiniciado após as alterações.
+- **"Sem conexão com o servidor":** confira as credenciais de acesso ao Supabase e verifique se o projeto está ativo.
+- **Site abre, mas sem praias e quiosques:** verifique se as tabelas necessárias existem no banco de dados e se os dados iniciais foram cadastrados corretamente no Supabase.
+- **Erro de `package.json` não encontrado:** o terminal está aberto na pasta incorreta. Entre no diretório que contém o arquivo `package.json`.
 
 ## O que falta fazer
 
-- **Painel de administrador (UC18–UC20):** as regras já existem no banco, falta a tela.
-- **Publicações, comentários e denúncias (UC06–UC08, UC12):** não fazem parte do DER enviado.
-- **Editar estabelecimento, produtos e promoções pela tela (UC14–UC17)** e **envio de fotos** (Supabase Storage).
-- **Para produção:** ativar CAPTCHA no Supabase Auth (Turnstile ou hCaptcha) contra cadastros automáticos.
+- **Painel de administrador (UC18–UC20):** as regras de permissões já estão configuradas no banco de dados, mas ainda falta desenvolver a interface do painel administrativo.
+- **Publicações, comentários e denúncias (UC06–UC08, UC12):** implementar essas funcionalidades, que não foram contempladas no DER disponibilizado para o projeto.
+- **Gerenciamento de estabelecimentos, produtos e promoções (UC14–UC17):** desenvolver as funcionalidades de edição e gerenciamento dessas informações pela interface, além da implementação do envio de fotos utilizando o Supabase Storage.
+- **Segurança em produção:** implementar CAPTCHA no Supabase Auth, utilizando soluções como Cloudflare Turnstile ou hCaptcha, para reduzir cadastros automatizados.
