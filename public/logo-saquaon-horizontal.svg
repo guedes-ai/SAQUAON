@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 170" width="100%" height="100%">
+  <defs>
+    <style>
+      @font-face {
+        font-family: 'MontserratBrand';
+        src: url('/fonts/Montserrat-Black.ttf') format('truetype');
+        font-weight: 900;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: 'MontserratTagline';
+        src: url('/fonts/Montserrat-Bold.ttf') format('truetype');
+        font-weight: 700;
+        font-style: normal;
+      }
+      .brand-title {
+        font-family: 'MontserratBrand', 'Montserrat', 'Arial Black', sans-serif;
+        font-weight: 900;
+        fill: #004F8A;
+      }
+      .brand-tagline {
+        font-family: 'MontserratTagline', 'Montserrat', 'Inter', sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        fill: #0F172A;
+        letter-spacing: 0.17em;
+      }
+    </style>
+  </defs>
+
+  <g id="saquaon-horizontal-logo" transform="translate(36, 12)">
+    <!-- SAQUA text -->
+    <text x="0" y="96" class="brand-title" font-size="116" letter-spacing="-0.03em">SAQUA</text>
+
+    <!-- Wave O symbol -->
+    <g transform="translate(466, 6)">
+      <!-- Upper Sky Blue Barrel Wave (#4FA8D8) -->
+      <path 
+        d="M 0 46 C 18 48, 32 34, 46 22 C 55 14, 66 15, 73 24 C 77 30, 75 40, 66 45 C 55 50, 39 46, 22 48 C 11 49, 4 48, 0 46 Z" 
+        fill="#4FA8D8"
+      />
+      <!-- Lower Deep Navy Swell Bowl (#004F8A) -->
+      <path 
+        d="M 1 55 C 16 63, 32 59, 50 54 C 65 50, 75 54, 78 53 C 75 76, 59 87, 39 87 C 18 87, 5 74, 1 55 Z" 
+        fill="#004F8A"
+      />
+    </g>
+
+    <!-- N text -->
+    <text x="584" y="96" class="brand-title" font-size="116" letter-spacing="-0.03em">N</text>
+
+    <!-- Tagline below -->
+    <text x="342" y="142" text-anchor="middle" class="brand-tagline">UMA NOVA FORMA DE VIVER AS PRAIAS DE SAQUAREMA.</text>
+  </g>
+</svg>

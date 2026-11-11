@@ -1,0 +1,6 @@
+{
+  "name": "SAQUA ON - Praias de Saquarema",
+  "description": "Plataforma oficial para viver as praias de Saquarema com previsão de ondas em tempo real, melhores quiosques, eventos da WSL e marketplace local.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

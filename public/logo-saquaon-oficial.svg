@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" width="100%" height="100%">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&amp;family=Inter:wght@700&amp;display=swap');
+      .brand-title {
+        font-family: 'Montserrat', 'Arial Black', sans-serif;
+        font-weight: 900;
+        fill: #004F8A;
+      }
+      .brand-tagline {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        font-size: 14.5px;
+        font-weight: 700;
+        fill: #0F172A;
+        letter-spacing: 0.22em;
+      }
+    </style>
+  </defs>
+
+  <g transform="translate(0, 20)">
+    <!-- SAQUA text -->
+    <text x="75" y="160" class="brand-title" font-size="124" letter-spacing="-0.03em">SAQUA</text>
+
+    <!-- Stylized WAVE "O" element -->
+    <g transform="translate(528, 52)">
+      <!-- Upper crest wave (Light ocean blue #4FA8D8) -->
+      <path 
+        d="M 5 66 C 18 69, 32 58, 46 47 C 56 39, 68 41, 71 52 C 70 61, 59 66, 48 68 C 34 71, 20 70, 5 66 Z" 
+        fill="#4FA8D8"
+      />
+      <path 
+        d="M 3 64 C 18 66, 33 55, 47 43 C 58 34, 70 37, 73 50 C 72 59, 61 65, 49 67 C 34 70, 19 69, 3 64 Z" 
+        fill="#4FA8D8"
+      />
+      <!-- Distinct wave barrel curl -->
+      <path 
+        d="M 2 64 C 16 66, 32 55, 46 44 C 54 37, 63 38, 70 46 C 73 50, 71 55, 66 59 C 58 64, 46 64, 32 66 C 18 68, 8 67, 2 64 Z" 
+        fill="#4FA8D8"
+      />
+      
+      <!-- Lower ocean swell bowl (Deep Navy #004F8A) -->
+      <path 
+        d="M 2 74 C 14 80, 28 78, 42 74 C 58 70, 68 74, 72 73 C 69 94, 53 103, 37 103 C 20 103, 5 92, 2 74 Z" 
+        fill="#004F8A"
+      />
+      <path 
+        d="M 4 75 C 16 81, 30 78, 44 74 C 58 70, 66 74, 71 73 C 68 93, 54 102, 37 102 C 20 102, 7 92, 4 75 Z" 
+        fill="#004F8A"
+      />
+    </g>
+
+    <!-- N text -->
+    <text x="622" y="160" class="brand-title" font-size="124" letter-spacing="-0.03em">N</text>
+
+    <!-- Tagline below -->
+    <text x="400" y="212" text-anchor="middle" class="brand-tagline">UMA NOVA FORMA DE VIVER AS PRAIAS DE SAQUAREMA.</text>
+  </g>
+</svg>

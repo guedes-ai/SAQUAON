@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000">
+  <defs>
+    <style>
+      @font-face {
+        font-family: 'MontserratBrand';
+        src: url('/fonts/Montserrat-Black.ttf') format('truetype');
+        font-weight: 900;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: 'MontserratTagline';
+        src: url('/fonts/Montserrat-Bold.ttf') format('truetype');
+        font-weight: 700;
+        font-style: normal;
+      }
+      .brand-title {
+        font-family: 'MontserratBrand', 'Montserrat', 'Arial Black', sans-serif;
+        font-weight: 900;
+        fill: #004F8A;
+      }
+      .brand-tagline {
+        font-family: 'MontserratTagline', 'Montserrat', 'Inter', sans-serif;
+        font-size: 15.5px;
+        font-weight: 700;
+        fill: #0F172A;
+        letter-spacing: 0.17em;
+      }
+    </style>
+  </defs>
+
+  <!-- Clean White Background matching user attachment -->
+  <rect width="1000" height="1000" fill="#FFFFFF" />
+
+  <!-- Center Group -->
+  <g id="saquaon-logo" transform="translate(108, 440)">
+    <!-- SAQUA text: 5 letters -->
+    <text x="0" y="96" class="brand-title" font-size="116" letter-spacing="-0.03em">SAQUA</text>
+
+    <!-- Wave O symbol (placed between SAQUA and N) -->
+    <!-- SAQUA at font-size 116 with -0.03em spacing has width ~ 455px -->
+    <g transform="translate(466, 6)">
+      <!-- Wave container: width 114, height 96 -->
+      <!-- Upper Sky Blue Barrel Wave (#4FA8D8 / #54A7D9) -->
+      <path 
+        d="M 2 46 C 14 47, 24 38, 38 29 C 48 21, 57 21, 63 30 C 67 36, 68 44, 60 48 C 50 53, 38 48, 26 49 C 16 50, 8 48, 2 46 Z" 
+        fill="#4FA8D8"
+      />
+      <path 
+        d="M 1 45 C 15 47, 26 36, 40 26 C 50 18, 62 19, 68 28 C 72 35, 71 43, 62 47 C 52 52, 38 48, 24 49 C 14 50, 7 48, 1 45 Z" 
+        fill="#4FA8D8"
+      />
+      <path 
+        d="M 0 45 C 16 47, 29 35, 43 24 C 54 16, 66 17, 72 26 C 76 33, 75 42, 65 46 C 53 51, 38 47, 22 49 C 12 50, 5 48, 0 45 Z" 
+        fill="#4FA8D8"
+      />
+      <!-- Extra precision flow for top wave crest -->
+      <path
+        d="M 0 46 C 18 48, 32 34, 46 22 C 55 14, 66 15, 73 24 C 77 30, 75 40, 66 45 C 55 50, 39 46, 22 48 C 11 49, 4 48, 0 46 Z"
+        fill="#4FA8D8"
+      />
+
+      <!-- Lower Deep Navy Swell Bowl (#004F8A) -->
+      <path 
+        d="M 0 54 C 14 62, 30 58, 48 53 C 64 49, 74 53, 78 52 C 75 75, 59 86, 39 86 C 18 86, 4 73, 0 54 Z" 
+        fill="#004F8A"
+      />
+      <path 
+        d="M 1 55 C 16 63, 32 59, 50 54 C 65 50, 75 54, 78 53 C 75 76, 59 87, 39 87 C 18 87, 5 74, 1 55 Z" 
+        fill="#004F8A"
+      />
+    </g>
+
+    <!-- N text -->
+    <text x="584" y="96" class="brand-title" font-size="116" letter-spacing="-0.03em">N</text>
+
+    <!-- Tagline precisely centered below -->
+    <text x="342" y="142" text-anchor="middle" class="brand-tagline">UMA NOVA FORMA DE VIVER AS PRAIAS DE SAQUAREMA.</text>
+  </g>
+</svg>
